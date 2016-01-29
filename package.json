@@ -1,0 +1,21 @@
+{
+  "name": "vaxtrax-api",
+  "version": "0.1.0",
+  "description": "API for Vaxtrax project",
+  "repository": "https://github.com/flawless2011/vaxtrax-api",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "del": "^2.1.0",
+    "eslint": "^1.10.3",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.1.1",
+    "gulp-nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "eslint": "eslint **/*.js",
+    "start": "gulp serve"
+  }
+}
