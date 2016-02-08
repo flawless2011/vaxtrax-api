@@ -5,7 +5,8 @@
   "repository": "https://github.com/flawless2011/vaxtrax-api",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "mongoose": "^4.3.7"
   },
   "devDependencies": {
     "del": "^2.1.0",
