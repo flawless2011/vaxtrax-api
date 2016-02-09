@@ -1,9 +1,13 @@
 var express = require('express');
 var app = express();
+var accountService = require('./services/account');
+var bodyParser = require('body-parser');
 
-// Stub
-app.get('/api/', function(req, res){
-  res.send("Hello World!");
-});
+app.use(bodyParser.json());
+
+// Account
+app.post('/api/account', accountService.create);
+app.get('/api/account/:accountID', accountService.fetch);
+app.put('/api/account/:accountID', accountService.update);
 
 app.listen(8080);
