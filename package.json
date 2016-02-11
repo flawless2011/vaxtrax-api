@@ -19,5 +19,8 @@
   "scripts": {
     "eslint": "eslint **/*.js",
     "start": "gulp serve"
+  },
+  "engines": {
+    "node": ">=4.2.3"
   }
 }
