@@ -19,8 +19,7 @@ AccountService.create = function(req, res){
 };
 
 AccountService.fetch = function(req, res){
-
-  res.send();
+  res.send("Hello Fetch");
 };
 
 AccountService.update = function(req, res){
