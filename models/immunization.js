@@ -1,9 +1,8 @@
 'use strict';
+var mongo = require('../datastore/mongo');
 var mongoose = require('mongoose');
 
-var mongo = mongoose.connect(process.env.MONGOLAB_URI);
-
-var Immunization = new mongoose.Schema({
+var Immunization = module.exports = new mongoose.Schema({
   name: String,
   kind: String,
   date: Date,
@@ -12,4 +11,4 @@ var Immunization = new mongoose.Schema({
   instructions: String
 });
 
-export.modules = mongo.model('Immunization', Immunization);
+Immunization.model = mongo.datastore.model('Immunization', Immunization);

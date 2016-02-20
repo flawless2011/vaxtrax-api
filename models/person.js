@@ -1,11 +1,10 @@
 'use strict';
+var mongo = require('../datastore/mongo');
 var mongoose = require('mongoose');
 var Address = require('./address');
 var Immunization = require('./immunization');
 
-var mongo = mongoose.connect(process.env.MONGOLAB_URI);
-
-var Person = new mongoose.Schema({
+var Person = module.exports = new mongoose.Schema({
   email: String,
   firstName: String,
   middleName: String,
@@ -18,4 +17,4 @@ var Person = new mongoose.Schema({
 });
 // TODO need to do some enforcement of type for gender and relationship
 
-export.modules = mongo.model('Person', Person);
+Person.model = mongo.datastore.model('Person', Person);

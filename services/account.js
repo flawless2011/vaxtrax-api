@@ -1,6 +1,6 @@
 'use strict';
 
-var User = require('../models/user');
+var User = require('../models/user').model;
 
 var AccountService = module.exports;
 

@@ -1,9 +1,8 @@
 'use strict';
+var mongo = require('../datastore/mongo');
 var mongoose = require('mongoose');
 
-var mongo = mongoose.connect(process.env.MONGOLAB_URI);
-
-var Address = new mongoose.Schema({
+var Address = module.exports = new mongoose.Schema({
   street1: String,
   street2: String,
   city: String,
@@ -11,4 +10,4 @@ var Address = new mongoose.Schema({
   zip: Number
 });
 
-export.modules = mongo.model('Address', Address);
+Address.model = mongo.datastore.model('Address', Address);
