@@ -1,21 +1,58 @@
 'use strict';
 
 var User = require('../models/user').model;
+var Person = require('../models/person').model;
 
 var AccountService = module.exports;
 
+var saveAccount = function(authResult){
+  var user = new User({
+    loginId: req.authResult.loginId,
+    loginSystem: 'Google',
+    email: req.authResult.email,
+    family: new Person({
+      email: req.authResult.email,
+      firstName: req.authResult.firstName,
+      lastName: req.authResult.lastName,
+      relationship: 'me'
+    })
+  });
+  return user.save();
+};
+
+var buildAccountResponse = function(accountInfo){
+  accountInfo.addPersonUrl = '/api/account/' + accountInfo.loginId + '/person';
+  accountInfo.updateAccountUrl = '/api/account/' + accountInfo.loginId;
+  // TODO more urls
+  return accountInfo;
+};
+
 AccountService.create = function(req, res){
   // TODO check to see if account already exists
-  var user = new User(req.body);
-  user.save()
+  User.findOne({loginId: req.authResult.loginId}).exec()
     .then(
       function(result){
-        res.status(200).send(result);
+        if (result.loginId === req.authResult.loginId){
+          // TODO use the result object and return back some urls
+          res.status(200).send(buildAccountResponse(result));
+        }
+        else {
+          saveAccount(req.authResult)
+            .then(
+              function(result){
+                res.status(200).send(buildAccountResponse(result));
+              },
+              function(err){
+                res.status(500).send({error: err});
+              }
+            );
+        }
       },
       function(err){
-        res.status(500).send(err);
+        res.status(500).send({error: err});
       }
     );
+
 };
 
 AccountService.fetch = function(req, res){

@@ -2,15 +2,15 @@ var express = require('express');
 var app = express();
 var accountService = require('./services/account');
 var bodyParser = require('body-parser');
+var googleAuth = require('./middleware/googleAuth');
 
 app.set('port', (process.env.PORT || 8080));
 
 app.use(bodyParser.json());
 
+app.use('/', googleAuth.authenticate);
+
 // Account
-app.get('/', function(req, res){
-  res.send("hello");
-});
 app.post('/api/account', accountService.create);
 app.get('/api/account/:accountID', accountService.fetch);
 app.put('/api/account/:accountID', accountService.update);
