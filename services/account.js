@@ -7,13 +7,13 @@ var AccountService = module.exports;
 
 var saveAccount = function(authResult){
   var user = new User({
-    loginId: req.authResult.loginId,
+    loginId: authResult.loginId,
     loginSystem: 'Google',
-    email: req.authResult.email,
+    email: authResult.email,
     family: new Person({
-      email: req.authResult.email,
-      firstName: req.authResult.firstName,
-      lastName: req.authResult.lastName,
+      email: authResult.email,
+      firstName: authResult.firstName,
+      lastName: authResult.lastName,
       relationship: 'me'
     })
   });
@@ -32,7 +32,7 @@ AccountService.create = function(req, res){
   User.findOne({loginId: req.authResult.loginId}).exec()
     .then(
       function(result){
-        if (result.loginId === req.authResult.loginId){
+        if (result && result.loginId === req.authResult.loginId){
           // TODO use the result object and return back some urls
           res.status(200).send(buildAccountResponse(result));
         }
