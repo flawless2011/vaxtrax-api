@@ -21,10 +21,11 @@ var saveAccount = function(authResult){
 };
 
 var buildAccountResponse = function(accountInfo){
-  accountInfo.addPersonUrl = '/api/account/' + accountInfo.loginId + '/person';
-  accountInfo.updateAccountUrl = '/api/account/' + accountInfo.loginId;
+  var cleanAccount = accountInfo.toObject();
+  cleanAccount.addPersonUrl = '/api/account/' + accountInfo.loginId + '/person';
+  cleanAccount.updateAccountUrl = '/api/account/' + accountInfo.loginId;
   // TODO more urls
-  return accountInfo;
+  return cleanAccount;
 };
 
 AccountService.create = function(req, res){
